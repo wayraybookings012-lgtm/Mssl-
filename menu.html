@@ -34,7 +34,6 @@
             z-index: -3;
         }
 
-        /* Dark overlay over video */
         .overlay {
             position: fixed;
             top: 0;
@@ -80,16 +79,22 @@
 
         .menu {
             width: 100%;
-            max-width: 850px;
+            max-width: 1100px;
+
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 25px;
         }
 
         .menu-card {
             text-decoration: none;
             color: white;
+
             padding: 45px 25px;
+
             min-height: 230px;
 
             display: flex;
@@ -100,6 +105,7 @@
             border-radius: 25px;
 
             background: rgba(255, 255, 255, 0.12);
+
             border: 1px solid rgba(255, 255, 255, 0.20);
 
             backdrop-filter: blur(12px);
@@ -137,6 +143,7 @@
             border-radius: 50%;
 
             background: #5eead4;
+
             color: #111827;
 
             font-size: 40px;
@@ -154,8 +161,11 @@
 
         .menu-card p {
             color: #d1d5db;
+
             font-size: 0.95rem;
+
             line-height: 1.5;
+
             text-align: center;
         }
 
@@ -165,8 +175,11 @@
 
         .footer {
             margin-top: 45px;
+
             color: #d1d5db;
+
             font-size: 0.85rem;
+
             text-align: center;
         }
 
@@ -174,30 +187,19 @@
            MOBILE
         ========================= */
 
-        @media (max-width: 700px) {
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header p {
-                font-size: 1rem;
-            }
+        @media (max-width: 850px) {
 
             .menu {
                 grid-template-columns: 1fr;
                 max-width: 450px;
             }
 
-            .menu-card {
-                min-height: 200px;
-                padding: 35px 20px;
+            .header h1 {
+                font-size: 2rem;
             }
 
-            .icon {
-                width: 75px;
-                height: 75px;
-                font-size: 34px;
+            .menu-card {
+                min-height: 200px;
             }
         }
 
@@ -205,6 +207,7 @@
 </head>
 
 <body>
+
 
     <!-- =========================
          BACKGROUND VIDEO
@@ -217,10 +220,16 @@
         loop
         playsinline
     >
-        <source src="me.mp4" type="video/mp4">
+
+        <source
+            src="background.mp4"
+            type="video/mp4"
+        >
 
         Your browser does not support background video.
+
     </video>
+
 
     <div class="overlay"></div>
 
@@ -242,22 +251,25 @@
         </div>
 
 
-        <!-- =========================
-             MENU OPTIONS
-        ========================= -->
-
         <div class="menu">
 
 
-            <!-- ABOUT MSSL -->
+            <!-- =========================
+                 1. ABOUT MSSL
+            ========================= -->
 
-            <a href="about.html" class="menu-card">
+            <a
+                href="about.html"
+                class="menu-card"
+            >
 
                 <div class="icon">
                     ℹ️
                 </div>
 
-                <h2>About MSSL</h2>
+                <h2>
+                    About MSSL
+                </h2>
 
                 <p>
                     Learn more about MSSL, the company,
@@ -267,7 +279,9 @@
             </a>
 
 
-            <!-- CLOCKING SYSTEM -->
+            <!-- =========================
+                 2. CLOCKING SYSTEM
+            ========================= -->
 
             <a
                 href="https://tractech.motherson.com/WebRegisterE-view/eLogin.aspx"
@@ -278,11 +292,38 @@
                     🕐
                 </div>
 
-                <h2>Visit Clocking System</h2>
+                <h2>
+                    Visit Clocking System
+                </h2>
 
                 <p>
                     Access the MSSL employee clocking
                     system.
+                </p>
+
+            </a>
+
+
+            <!-- =========================
+                 3. OUR CARS
+            ========================= -->
+
+            <a
+                href="our%20cars.html"
+                class="menu-card"
+            >
+
+                <div class="icon">
+                    🚗
+                </div>
+
+                <h2>
+                    Our Cars
+                </h2>
+
+                <p>
+                    Explore our cars and discover
+                    what we have available.
                 </p>
 
             </a>
