@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About MSSL</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           BACKGROUND VIDEO
+        ========================= */
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            z-index: -3;
+        }
+
+        /* Dark overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.62);
+
+            z-index: -2;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            padding: 35px 20px 50px;
+        }
+
+        /* =========================
+           TOP NAVIGATION
+        ========================= */
+
+        .top-bar {
+            width: 100%;
+            max-width: 1000px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5eead4;
+        }
+
+        .back {
+            text-decoration: none;
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 25px;
+
+            background: rgba(255,255,255,0.12);
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            backdrop-filter: blur(10px);
+
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            width: 100%;
+            max-width: 900px;
+
+            padding: 45px 35px;
+
+            border-radius: 28px;
+
+            background: rgba(255,255,255,0.12);
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+
+            font-size: 2.7rem;
+
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #5eead4;
+
+            font-size: 1.2rem;
+
+            margin-bottom: 35px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            font-size: 1.45rem;
+
+            color: #5eead4;
+
+            margin-bottom: 12px;
+        }
+
+        .section p {
+            color: #e5e7eb;
+
+            font-size: 1.05rem;
+
+            line-height: 1.8;
+        }
+
+        /* =========================
+           HIGHLIGHTS
+        ========================= */
+
+        .highlights {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 30px;
+        }
+
+        .highlight {
+            padding: 25px 18px;
+
+            text-align: center;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid rgba(255,255,255,0.15);
+        }
+
+        .highlight .icon {
+            font-size: 32px;
+
+            margin-bottom: 12px;
+        }
+
+        .highlight h3 {
+            margin-bottom: 8px;
+
+            font-size: 1.1rem;
+        }
+
+        .highlight p {
+            font-size: 0.9rem;
+
+            line-height: 1.5;
+
+            color: #d1d5db;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            margin-top: 35px;
+
+            color: #d1d5db;
+
+            font-size: 0.85rem;
+
+            text-align: center;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .page {
+                padding: 25px 15px 40px;
+            }
+
+            .top-bar {
+                margin-bottom: 30px;
+            }
+
+            .content {
+                padding: 35px 22px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .section p {
+                font-size: 0.98rem;
+            }
+
+            .highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- =========================
+         BACKGROUND VIDEO
+    ========================= -->
+
+    <video
+        class="video-background"
+        autoplay
+        muted
+        loop
+        playsinline
+    >
+
+        <source
+            src="About Motherson.mp4"
+            type="video/mp4"
+        >
+
+        Your browser does not support video playback.
+
+    </video>
+
+
+    <!-- DARK OVERLAY -->
+
+    <div class="overlay"></div>
+
+
+    <!-- =========================
+         PAGE CONTENT
+    ========================= -->
+
+    <div class="page">
+
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div class="logo">
+                MSSL
+            </div>
+
+            <a
+                href="menu.html"
+                class="back"
+            >
+                ← Back to Menu
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             MAIN INFORMATION
+        ========================= -->
+
+        <main class="content">
+
+            <h1>
+                About MSSL
+            </h1>
+
+            <div class="subtitle">
+                MSSL Member Information
+            </div>
+
+
+            <div class="section">
+
+                <h2>
+                    About MSSL
+                </h2>
+
+                <p>
+                    MSSL is part of the Motherson Group, a global
+                    organisation providing solutions to customers
+                    across the automotive and other industries.
+                </p>
+
+            </div>
+
+
+            <div class="section">
+
+                <h2>
+                    Our Workplace
+                </h2>
+
+                <p>
+                    MSSL brings together people, technology,
+                    manufacturing and innovation to support its
+                    customers and create quality products and
+                    solutions.
+                </p>
+
+            </div>
+
+
+            <div class="section">
+
+                <h2>
+                    Our Members
+                </h2>
+
+                <p>
+                    Every member plays an important role in the
+                    organisation. Your commitment, teamwork and
+                    dedication contribute to the success of the
+                    workplace every day.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 HIGHLIGHTS
+            ========================= -->
+
+            <div class="highlights">
+
+
+                <div class="highlight">
+
+                    <div class="icon">
+                        👥
+                    </div>
+
+                    <h3>
+                        Teamwork
+                    </h3>
+
+                    <p>
+                        Working together to achieve common goals.
+                    </p>
+
+                </div>
+
+
+                <div class="highlight">
+
+                    <div class="icon">
+                        ⚙️
+                    </div>
+
+                    <h3>
+                        Innovation
+                    </h3>
+
+                    <p>
+                        Using technology and new ideas to improve.
+                    </p>
+
+                </div>
+
+
+                <div class="highlight">
+
+                    <div class="icon">
+                        🌍
+                    </div>
+
+                    <h3>
+                        Global
+                    </h3>
+
+                    <p>
+                        Connecting people and operations across
+                        different markets.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </main>
+
+
+        <footer>
+            MSSL Member Portal
+        </footer>
+
+
+    </div>
+
+
+    <!-- =========================
+         VIDEO SCRIPT
+    ========================= -->
+
+    <script>
+
+        const video =
+            document.querySelector(".video-background");
+
+        /*
+         * Attempt to start the video.
+         * Muted autoplay is normally allowed
+         * by modern mobile browsers.
+         */
+
+        video.play().catch(function(error) {
+
+            console.log(
+                "Autoplay was prevented:",
+                error
+            );
+
+        });
+
+    </script>
+
+</body>
+  </html>
