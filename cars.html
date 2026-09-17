@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Cars | MSSL</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827,
+                    #1f2937,
+                    #0f766e
+                );
+
+            color: white;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            width: 100%;
+
+            padding: 25px 20px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+
+            font-weight: bold;
+
+            color: #5eead4;
+        }
+
+        .back {
+            text-decoration: none;
+
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 25px;
+
+            background: rgba(255,255,255,0.12);
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            width: 95%;
+
+            max-width: 1200px;
+
+            margin: 20px auto 60px;
+
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+
+            margin-bottom: 10px;
+
+            color: #5eead4;
+        }
+
+        .subtitle {
+            color: #d1d5db;
+
+            font-size: 1.1rem;
+
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           3D MODEL CONTAINER
+        ========================= */
+
+        .model-container {
+            width: 100%;
+
+            height: 650px;
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            background: #111827;
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.45);
+        }
+
+        .sketchfab-embed-wrapper {
+            width: 100%;
+
+            height: 100%;
+        }
+
+        .sketchfab-embed-wrapper iframe {
+            width: 100%;
+
+            height: 100%;
+
+            border: none;
+        }
+
+        /* =========================
+           INFORMATION
+        ========================= */
+
+        .info {
+            margin-top: 30px;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            border:
+                1px solid rgba(255,255,255,0.15);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .info h2 {
+            color: #5eead4;
+
+            margin-bottom: 12px;
+        }
+
+        .info p {
+            color: #d1d5db;
+
+            line-height: 1.7;
+
+            font-size: 1rem;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #9ca3af;
+
+            font-size: 0.85rem;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 20px 15px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .back {
+                padding: 9px 15px;
+
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .model-container {
+                height: 500px;
+
+                border-radius: 18px;
+            }
+
+            .info {
+                padding: 25px 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+            MSSL
+        </div>
+
+        <a
+            href="manu.html"
+            class="back"
+        >
+            ← Back to Menu
+        </a>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main>
+
+        <h1>
+            Our Cars
+        </h1>
+
+        <p class="subtitle">
+            Explore the Ford Ranger T6 Wildtrak in 3D
+        </p>
+
+
+        <!-- =========================
+             SKETCHFAB 3D MODEL
+        ========================= -->
+
+        <div class="model-container">
+
+            <div class="sketchfab-embed-wrapper">
+
+                <iframe
+                    title="Ford ranger T6 wildtrak"
+                    frameborder="0"
+                    allowfullscreen
+                    mozallowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking
+                    execution-while-out-of-viewport
+                    execution-while-not-rendered
+                    web-share
+                    src="https://sketchfab.com/models/f132f493e45148208e147dc4908f5278/embed">
+                </iframe>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CAR INFORMATION
+        ========================= -->
+
+        <div class="info">
+
+            <h2>
+                Ford Ranger T6 Wildtrak
+            </h2>
+
+            <p>
+                Explore the vehicle using the interactive 3D model
+                above. Rotate, zoom and inspect the vehicle directly
+                from the model viewer.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        3D model provided through Sketchfab.
+
+    </footer>
+
+
+</body>
+</html>
