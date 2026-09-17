@@ -84,19 +84,17 @@
             transition: width 1s linear;
         }
 
-        .skip {
-            margin-top: 25px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 30px;
-            background: #5eead4;
-            color: #111827;
-            font-weight: bold;
-            cursor: pointer;
+        /* Created by */
+        .creator {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #d1d5db;
+            letter-spacing: 0.5px;
         }
 
-        .skip:hover {
-            opacity: 0.85;
+        .creator span {
+            color: #5eead4;
+            font-weight: bold;
         }
 
         @media (max-width: 600px) {
@@ -142,16 +140,16 @@
         <div class="bar" id="bar"></div>
     </div>
 
-    <button class="skip" onclick="redirectNow()">
-        Enter Clocking System Now
-    </button>
+    <div class="creator">
+        Created by <span>Thulane Nonyane</span>
+    </div>
 
 </div>
 
 <script>
 
-    // Redirect to manu.html
-    const redirectURL = "manu.html";
+    // Redirect to menu.html
+    const redirectURL = "menu.html";
 
     const quotes = [
         "Success starts with the decision to keep going.",
