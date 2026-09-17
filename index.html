@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome, Thulane Nonyane</title>
+    <title>Welcome MSSL Member</title>
 
     <style>
         * {
@@ -98,6 +98,20 @@
         .skip:hover {
             opacity: 0.85;
         }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .countdown {
+                font-size: 4rem;
+            }
+
+            .message {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -107,7 +121,7 @@
 
     <h1>Welcome to your Clocking System</h1>
 
-    <h2 class="name">Thulane Nonyane</h2>
+    <h2 class="name">Welcome MSSL Member</h2>
 
     <p class="message">
         I know it's hard to work, but pushing forward is the best thing you can do.
@@ -136,8 +150,8 @@
 
 <script>
 
-    const redirectURL =
-        "https://tractech.motherson.com/WebRegisterE-view/eLogin.aspx";
+    // Redirect to manu.html
+    const redirectURL = "manu.html";
 
     const quotes = [
         "Success starts with the decision to keep going.",
@@ -170,7 +184,9 @@
         countdown.textContent = count;
 
         quoteIndex++;
-        quote.textContent = '"' + quotes[quoteIndex % quotes.length] + '"';
+
+        quote.textContent =
+            '"' + quotes[quoteIndex % quotes.length] + '"';
 
         bar.style.width = (count * 10) + "%";
 
@@ -184,4 +200,4 @@
 </script>
 
 </body>
-      </html>
+</html>
