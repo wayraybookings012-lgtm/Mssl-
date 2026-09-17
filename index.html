@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome, Thulane Nonyane</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #111827, #1f2937, #0f766e);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            padding: 45px 30px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            color: #5eead4;
+        }
+
+        .message {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin: 20px 0;
+        }
+
+        .quote {
+            min-height: 70px;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #d1fae5;
+            margin: 25px 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .countdown {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #5eead4;
+        }
+
+        .redirect {
+            font-size: 0.95rem;
+            color: #d1d5db;
+        }
+
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 25px;
+        }
+
+        .bar {
+            height: 100%;
+            width: 100%;
+            background: #5eead4;
+            transition: width 1s linear;
+        }
+
+        .skip {
+            margin-top: 25px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            background: #5eead4;
+            color: #111827;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .skip:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Welcome to your Clocking System</h1>
+
+    <h2 class="name">Thulane Nonyane</h2>
+
+    <p class="message">
+        I know it's hard to work, but pushing forward is the best thing you can do.
+        Keep going. Every day you show up is another step toward your goals.
+    </p>
+
+    <div class="quote" id="quote">
+        "Success starts with the decision to keep going."
+    </div>
+
+    <div class="countdown" id="countdown">10</div>
+
+    <div class="redirect">
+        Taking you to your clocking system...
+    </div>
+
+    <div class="progress">
+        <div class="bar" id="bar"></div>
+    </div>
+
+    <button class="skip" onclick="redirectNow()">
+        Enter Clocking System Now
+    </button>
+
+</div>
+
+<script>
+
+    const redirectURL =
+        "https://tractech.motherson.com/WebRegisterE-view/eLogin.aspx";
+
+    const quotes = [
+        "Success starts with the decision to keep going.",
+        "Hard work today creates opportunities tomorrow.",
+        "Don't wait for motivation. Build discipline.",
+        "Every day you show up, you get stronger.",
+        "Small steps every day can create a big future.",
+        "Your effort will never be wasted.",
+        "Keep pushing — your future self will thank you.",
+        "Difficult days are part of the journey.",
+        "You don't have to be perfect. You just have to keep moving.",
+        "One more day. One more step. Keep going."
+    ];
+
+    let count = 10;
+    let quoteIndex = 0;
+
+    const countdown = document.getElementById("countdown");
+    const quote = document.getElementById("quote");
+    const bar = document.getElementById("bar");
+
+    function redirectNow() {
+        window.location.href = redirectURL;
+    }
+
+    const timer = setInterval(function () {
+
+        count--;
+
+        countdown.textContent = count;
+
+        quoteIndex++;
+        quote.textContent = '"' + quotes[quoteIndex % quotes.length] + '"';
+
+        bar.style.width = (count * 10) + "%";
+
+        if (count <= 0) {
+            clearInterval(timer);
+            redirectNow();
+        }
+
+    }, 1000);
+
+</script>
+
+</body>
+      </html>
