@@ -33,8 +33,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* EMPLOYEE INFORMATION */
-
 .employee-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -63,11 +61,9 @@ h1 {
     font-size: 16px;
 }
 
-/* SUMMARY */
-
 .summary {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 12px;
     margin-bottom: 20px;
 }
@@ -86,10 +82,8 @@ h1 {
 }
 
 .summary-card strong {
-    font-size: 22px;
+    font-size: 20px;
 }
-
-/* CALENDAR */
 
 .calendar-header {
     display: flex;
@@ -159,8 +153,6 @@ h1 {
     outline-offset: -3px;
 }
 
-/* GOLD STAR */
-
 .star {
     position: absolute;
     top: 6px;
@@ -181,7 +173,15 @@ h1 {
     font-weight: bold;
 }
 
-/* WEEKLY */
+.night-label {
+    color: #315a8c;
+    font-weight: bold;
+}
+
+.day-label {
+    color: #388e3c;
+    font-weight: bold;
+}
 
 .weekly-section {
     margin-top: 20px;
@@ -209,7 +209,12 @@ h1 {
     font-weight: bold;
 }
 
-/* MODAL */
+.night-pay {
+    color: #315a8c;
+    font-weight: bold;
+}
+
+/* MODALS */
 
 .modal-bg {
     display: none;
@@ -220,14 +225,17 @@ h1 {
     justify-content: center;
     padding: 15px;
     z-index: 100;
+    overflow-y: auto;
 }
 
 .modal {
     width: 100%;
-    max-width: 430px;
+    max-width: 500px;
     background: white;
     border-radius: 15px;
     padding: 22px;
+    max-height: 92vh;
+    overflow-y: auto;
 }
 
 .modal h2 {
@@ -244,7 +252,8 @@ h1 {
     margin-bottom: 6px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -293,10 +302,59 @@ h1 {
     background: #ddd;
 }
 
-/* MOBILE */
+.week-button {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.week-day-row {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #fafafa;
+}
+
+.week-day-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.week-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.week-fields input,
+.week-fields select {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.shift-preview {
+    font-size: 12px;
+    margin-top: 7px;
+    font-weight: bold;
+}
+
+@media (max-width: 950px) {
+    .summary {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
 @media (max-width: 800px) {
-
     .summary {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -304,11 +362,9 @@ h1 {
     .employee-info {
         grid-template-columns: 1fr;
     }
-
 }
 
 @media (max-width: 500px) {
-
     .container {
         padding: 10px;
     }
@@ -336,11 +392,13 @@ h1 {
     }
 
     .summary-card strong {
-        font-size: 18px;
+        font-size: 17px;
     }
 
+    .week-fields {
+        grid-template-columns: 1fr;
+    }
 }
-
 </style>
 </head>
 
@@ -348,513 +406,417 @@ h1 {
 
 <div class="container">
 
-    <h1>Employee Work Calendar</h1>
+<h1>Employee Work Calendar</h1>
 
-    <div class="subtitle">
-        Select a working day and enter the employee's working hours.
-    </div>
+<div class="subtitle">
+Select a day normally, or use <b>Fill Week</b> to enter an entire week quickly.
+</div>
 
+<div class="employee-info">
 
-    <!-- EMPLOYEE INFORMATION -->
+<div class="info-box">
+<label for="employeeName">Employee Name</label>
+<input type="text" id="employeeName" placeholder="Enter employee name">
+</div>
 
-    <div class="employee-info">
+<div class="info-box">
+<label for="hourlyRate">Rate Per Hour (R)</label>
+<input type="number" id="hourlyRate" value="50" min="0" step="0.01">
+</div>
 
-        <div class="info-box">
+</div>
 
-            <label for="employeeName">
-                Employee Name
-            </label>
+<div class="summary">
 
-            <input
-                type="text"
-                id="employeeName"
-                placeholder="Enter employee name"
-            >
+<div class="summary-card">
+<small>Total Hours</small>
+<strong id="totalHours">0.00</strong>
+</div>
 
-        </div>
+<div class="summary-card">
+<small>Normal Hours</small>
+<strong id="normalHours">0.00</strong>
+</div>
 
+<div class="summary-card">
+<small>×1.5 Overtime</small>
+<strong id="overtimeHours">0.00</strong>
+</div>
 
-        <div class="info-box">
+<div class="summary-card">
+<small>Sunday ×2</small>
+<strong id="sundayHours">0.00</strong>
+</div>
 
-            <label for="hourlyRate">
-                Rate Per Hour (R)
-            </label>
+<div class="summary-card">
+<small>Night Hours</small>
+<strong id="nightHours">0.00</strong>
+</div>
 
-            <input
-                type="number"
-                id="hourlyRate"
-                value="50"
-                min="0"
-                step="0.01"
-            >
+<div class="summary-card">
+<small>TOTAL SALARY</small>
+<strong id="totalSalary">R0.00</strong>
+</div>
 
-        </div>
+</div>
 
-    </div>
+<div class="calendar-header">
 
+<button id="previousMonth">‹ Previous</button>
 
-    <!-- SUMMARY -->
+<div class="month-title" id="monthTitle"></div>
 
-    <div class="summary">
+<button id="nextMonth">Next ›</button>
 
-        <div class="summary-card">
+</div>
 
-            <small>
-                Total Hours
-            </small>
+<div class="weekdays">
+<div class="weekday">Mon</div>
+<div class="weekday">Tue</div>
+<div class="weekday">Wed</div>
+<div class="weekday">Thu</div>
+<div class="weekday">Fri</div>
+<div class="weekday">Sat</div>
+<div class="weekday">Sun</div>
+</div>
 
-            <strong id="totalHours">
-                0.00
-            </strong>
+<div class="calendar" id="calendar"></div>
 
-        </div>
+<div class="weekly-section">
 
+<h2>Weekly Salary Calculation</h2>
 
-        <div class="summary-card">
+<div id="weeklyTotals">
+No working days recorded yet.
+</div>
 
-            <small>
-                Normal Hours
-            </small>
-
-            <strong id="normalHours">
-                0.00
-            </strong>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <small>
-                ×1.5 Overtime
-            </small>
-
-            <strong id="overtimeHours">
-                0.00
-            </strong>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <small>
-                Sunday ×2
-            </small>
-
-            <strong id="sundayHours">
-                0.00
-            </strong>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <small>
-                TOTAL SALARY
-            </small>
-
-            <strong id="totalSalary">
-                R0.00
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <!-- CALENDAR -->
-
-    <div class="calendar-header">
-
-        <button id="previousMonth">
-            ‹ Previous
-        </button>
-
-        <div
-            class="month-title"
-            id="monthTitle">
-        </div>
-
-        <button id="nextMonth">
-            Next ›
-        </button>
-
-    </div>
-
-
-    <div class="weekdays">
-
-        <div class="weekday">Mon</div>
-        <div class="weekday">Tue</div>
-        <div class="weekday">Wed</div>
-        <div class="weekday">Thu</div>
-        <div class="weekday">Fri</div>
-        <div class="weekday">Sat</div>
-        <div class="weekday">Sun</div>
-
-    </div>
-
-
-    <div
-        class="calendar"
-        id="calendar">
-    </div>
-
-
-    <!-- WEEKLY TOTALS -->
-
-    <div class="weekly-section">
-
-        <h2>
-            Weekly Salary Calculation
-        </h2>
-
-        <div id="weeklyTotals">
-
-            No working days recorded yet.
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- WORKING DAY MODAL -->
+<!-- SINGLE DAY MODAL -->
 
-<div
-    class="modal-bg"
-    id="modalBg">
+<div class="modal-bg" id="modalBg">
 
-    <div class="modal">
+<div class="modal">
 
-        <h2 id="modalTitle">
-            Record Working Day
-        </h2>
+<h2 id="modalTitle">Record Working Day</h2>
+
+<button class="week-button" id="fillWeekButton">
+📅 Fill Entire Week
+</button>
+
+<form id="workForm">
+
+<div class="form-group">
+
+<label>Shift Type</label>
+
+<select id="shiftType">
+
+<option value="day">Day Shift</option>
+<option value="night">Night Shift</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label for="startTime">Start Time</label>
+
+<input type="time" id="startTime" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="endTime">Clock Off Time</label>
+
+<input type="time" id="endTime" required>
+
+</div>
+
+<div class="calculation">
+
+<div>
+Hours Worked:
+<strong id="calculatedHours">0.00</strong>
+</div>
+
+<div>
+Rate:
+<strong id="calculatedRate">Normal</strong>
+</div>
+
+<div>
+Night Allowance:
+<strong id="calculatedNightAllowance">R0.00</strong>
+</div>
+
+<div>
+Estimated Day Salary:
+<strong id="calculatedPay">R0.00</strong>
+</div>
+
+</div>
+
+<div class="buttons">
+
+<button type="submit" class="save">
+Save Day
+</button>
+
+<button type="button" class="delete" id="deleteDay">
+Delete
+</button>
+
+<button type="button" class="cancel" id="cancelModal">
+Cancel
+</button>
+
+</div>
+
+</form>
+
+</div>
+</div>
 
 
-        <form id="workForm">
+<!-- WEEK MODAL -->
 
-            <div class="form-group">
+<div class="modal-bg" id="weekModalBg">
 
-                <label for="startTime">
-                    Start Time
-                </label>
+<div class="modal">
 
-                <input
-                    type="time"
-                    id="startTime"
-                    required
-                >
+<h2 id="weekModalTitle">Fill Week</h2>
 
-            </div>
+<p style="color:#777;">
+Choose Off, Day or Night for each day and enter the times.
+</p>
 
+<div id="weekForm"></div>
 
-            <div class="form-group">
+<div class="buttons">
 
-                <label for="endTime">
-                    Clock Off Time
-                </label>
+<button class="save" id="saveWeek">
+Save Week
+</button>
 
-                <input
-                    type="time"
-                    id="endTime"
-                    required
-                >
+<button class="cancel" id="cancelWeek">
+Cancel
+</button>
 
-            </div>
+</div>
 
-
-            <div class="calculation">
-
-                <div>
-                    Hours Worked:
-                    <strong id="calculatedHours">
-                        0.00
-                    </strong>
-                </div>
-
-
-                <div>
-                    Rate:
-                    <strong id="calculatedRate">
-                        Normal
-                    </strong>
-                </div>
-
-
-                <div>
-                    Estimated Day Salary:
-                    <strong id="calculatedPay">
-                        R0.00
-                    </strong>
-                </div>
-
-            </div>
-
-
-            <div class="buttons">
-
-                <button
-                    type="submit"
-                    class="save">
-                    Save Day
-                </button>
-
-
-                <button
-                    type="button"
-                    class="delete"
-                    id="deleteDay">
-                    Delete
-                </button>
-
-
-                <button
-                    type="button"
-                    class="cancel"
-                    id="cancelModal">
-                    Cancel
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
+</div>
 </div>
 
 
 <script>
 
-/* ============================
-   VARIABLES
-============================ */
-
 const calendar =
-    document.getElementById("calendar");
+document.getElementById("calendar");
 
 const monthTitle =
-    document.getElementById("monthTitle");
+document.getElementById("monthTitle");
 
 const modalBg =
-    document.getElementById("modalBg");
+document.getElementById("modalBg");
+
+const weekModalBg =
+document.getElementById("weekModalBg");
 
 const modalTitle =
-    document.getElementById("modalTitle");
+document.getElementById("modalTitle");
 
 const startTime =
-    document.getElementById("startTime");
+document.getElementById("startTime");
 
 const endTime =
-    document.getElementById("endTime");
+document.getElementById("endTime");
+
+const shiftType =
+document.getElementById("shiftType");
 
 const calculatedHours =
-    document.getElementById("calculatedHours");
+document.getElementById("calculatedHours");
 
 const calculatedRate =
-    document.getElementById("calculatedRate");
+document.getElementById("calculatedRate");
 
 const calculatedPay =
-    document.getElementById("calculatedPay");
+document.getElementById("calculatedPay");
+
+const calculatedNightAllowance =
+document.getElementById("calculatedNightAllowance");
 
 const workForm =
-    document.getElementById("workForm");
+document.getElementById("workForm");
 
 const hourlyRate =
-    document.getElementById("hourlyRate");
+document.getElementById("hourlyRate");
 
 const previousMonth =
-    document.getElementById("previousMonth");
+document.getElementById("previousMonth");
 
 const nextMonth =
-    document.getElementById("nextMonth");
+document.getElementById("nextMonth");
 
 const deleteDay =
-    document.getElementById("deleteDay");
+document.getElementById("deleteDay");
 
 const cancelModal =
-    document.getElementById("cancelModal");
+document.getElementById("cancelModal");
+
+const fillWeekButton =
+document.getElementById("fillWeekButton");
+
+const weekForm =
+document.getElementById("weekForm");
+
+const saveWeek =
+document.getElementById("saveWeek");
+
+const cancelWeek =
+document.getElementById("cancelWeek");
 
 
 let currentDate = new Date();
 
 let selectedDate = null;
 
-
-/*
-   Saved employee working days
-*/
+let selectedWeek = null;
 
 let workDays = {};
 
 
-/* ============================
-   DATE KEY
-============================ */
+/* DATE KEY */
 
 function dateKey(date) {
 
-    const year =
-        date.getFullYear();
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
+    return `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+    ).padStart(2,"0")}-${String(
+        date.getDate()
+    ).padStart(2,"0")}`;
 
 }
 
 
-/* ============================
-   FORMAT MONEY
-============================ */
+/* MONEY */
 
 function money(amount) {
 
     return "R" +
-        Number(amount).toLocaleString(
-            "en-ZA",
-            {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }
-        );
+    Number(amount).toLocaleString(
+        "en-ZA",
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+    );
 
 }
 
 
-/* ============================
-   CALCULATE HOURS
-============================ */
+/* HOURS */
 
-function calculateHours(start, end) {
+function calculateHours(start,end) {
 
-    if (!start || !end) {
+    if (!start || !end) return 0;
 
-        return 0;
+    const a = start.split(":");
 
-    }
-
-
-    const startParts =
-        start.split(":");
-
-    const endParts =
-        end.split(":");
-
+    const b = end.split(":");
 
     let startMinutes =
-        Number(startParts[0]) * 60 +
-        Number(startParts[1]);
-
+        Number(a[0]) * 60 + Number(a[1]);
 
     let endMinutes =
-        Number(endParts[0]) * 60 +
-        Number(endParts[1]);
-
-
-    /*
-       Employee worked through midnight.
-    */
+        Number(b[0]) * 60 + Number(b[1]);
 
     if (endMinutes < startMinutes) {
-
         endMinutes += 1440;
-
     }
 
-
-    return (
-        endMinutes - startMinutes
-    ) / 60;
+    return (endMinutes - startMinutes) / 60;
 
 }
 
 
-/* ============================
-   GET HOURLY RATE
-============================ */
+/* RATE */
 
 function getHourlyRate() {
 
-    const rate =
-        Number(hourlyRate.value);
+    const rate = Number(hourlyRate.value);
 
-
-    if (!Number.isFinite(rate) ||
-        rate < 0) {
-
-        return 0;
-
-    }
-
-
-    return rate;
+    return Number.isFinite(rate) && rate >= 0
+        ? rate
+        : 0;
 
 }
 
 
-/* ============================
-   GET MONDAY
-============================ */
+/* MONDAY */
 
 function getMonday(date) {
 
-    const d =
-        new Date(date);
+    const d = new Date(date);
 
-    const day =
-        d.getDay();
-
+    const day = d.getDay();
 
     const difference =
-        day === 0
-            ? -6
-            : 1 - day;
+        day === 0 ? -6 : 1 - day;
 
-
-    d.setDate(
-        d.getDate() + difference
-    );
-
+    d.setDate(d.getDate() + difference);
 
     return d;
 
 }
 
 
-/* ============================
-   WEEK KEY
-============================ */
+/* WEEK KEY */
 
 function getWeekKey(date) {
 
-    return dateKey(
-        getMonday(date)
-    );
+    return dateKey(getMonday(date));
 
 }
 
 
-/* ============================
-   CALENDAR
-============================ */
+/* NIGHT SHIFT */
+
+function isNightShift(start,end) {
+
+    if (!start || !end) return false;
+
+    const startMinutes =
+        Number(start.split(":")[0]) * 60 +
+        Number(start.split(":")[1]);
+
+    const endMinutes =
+        Number(end.split(":")[0]) * 60 +
+        Number(end.split(":")[1]);
+
+    /*
+       Night shift:
+       Clock in 17:00 or later
+       AND clock off 06:00 or earlier.
+    */
+
+    return startMinutes >= 17 * 60 &&
+           endMinutes <= 6 * 60;
+
+}
+
+
+/* CALENDAR */
 
 function renderCalendar() {
 
     calendar.innerHTML = "";
-
 
     const year =
         currentDate.getFullYear();
@@ -862,38 +824,25 @@ function renderCalendar() {
     const month =
         currentDate.getMonth();
 
-
     monthTitle.textContent =
         currentDate.toLocaleDateString(
             "en-ZA",
             {
-                month: "long",
-                year: "numeric"
+                month:"long",
+                year:"numeric"
             }
         );
 
-
     const firstDay =
-        new Date(
-            year,
-            month,
-            1
-        );
-
+        new Date(year,month,1);
 
     let startingDay =
         firstDay.getDay();
 
-
-    /*
-       Make Monday the first day.
-    */
-
     startingDay =
         startingDay === 0
-            ? 6
-            : startingDay - 1;
-
+        ? 6
+        : startingDay - 1;
 
     const daysInMonth =
         new Date(
@@ -902,10 +851,6 @@ function renderCalendar() {
             0
         ).getDate();
 
-
-    /*
-       Empty cells
-    */
 
     for (
         let i = 0;
@@ -924,10 +869,6 @@ function renderCalendar() {
     }
 
 
-    /*
-       Calendar days
-    */
-
     for (
         let day = 1;
         day <= daysInMonth;
@@ -941,87 +882,50 @@ function renderCalendar() {
                 day
             );
 
-
         const key =
             dateKey(date);
-
 
         const cell =
             document.createElement("div");
 
-
-        cell.className =
-            "day";
+        cell.className = "day";
 
 
-        /*
-           Sunday
-        */
-
-        if (
-            date.getDay() === 0
-        ) {
-
-            cell.classList.add(
-                "sunday"
-            );
-
+        if (date.getDay() === 0) {
+            cell.classList.add("sunday");
         }
 
 
-        /*
-           Today
-        */
-
-        const today =
-            new Date();
-
+        const today = new Date();
 
         if (
             day === today.getDate() &&
             month === today.getMonth() &&
             year === today.getFullYear()
         ) {
-
-            cell.classList.add(
-                "today"
-            );
-
+            cell.classList.add("today");
         }
 
 
         const number =
             document.createElement("div");
 
-
         number.className =
             "day-number";
 
-
-        number.textContent =
-            day;
-
+        number.textContent = day;
 
         cell.appendChild(number);
 
-
-        /*
-           Employee worked
-        */
 
         if (workDays[key]) {
 
             const star =
                 document.createElement("div");
 
+            star.className = "star";
 
-            star.className =
-                "star";
-
-
-            star.textContent =
-                "⭐";
-
+            star.textContent = "⭐";
 
             cell.appendChild(star);
 
@@ -1032,21 +936,15 @@ function renderCalendar() {
                     workDays[key].end
                 );
 
-
             const hours =
                 document.createElement("div");
 
-
-            hours.className =
-                "hours";
-
+            hours.className = "hours";
 
             hours.innerHTML =
                 `${h.toFixed(2)} hrs<br>
-                 ${workDays[key].start}
-                 -
+                 ${workDays[key].start} -
                  ${workDays[key].end}`;
-
 
             cell.appendChild(hours);
 
@@ -1054,25 +952,31 @@ function renderCalendar() {
             const rate =
                 document.createElement("div");
 
-
-            rate.className =
-                "rate";
+            rate.className = "rate";
 
 
-            if (
-                date.getDay() === 0
-            ) {
+            if (workDays[key].night) {
+
+                rate.className =
+                    "rate night-label";
+
+                rate.textContent =
+                    "🌙 Night +10%";
+
+            } else if (date.getDay() === 0) {
 
                 rate.textContent =
                     "Sunday ×2";
 
             } else {
 
+                rate.className =
+                    "rate day-label";
+
                 rate.textContent =
-                    "Worked";
+                    "☀ Day";
 
             }
-
 
             cell.appendChild(rate);
 
@@ -1081,53 +985,36 @@ function renderCalendar() {
 
         cell.addEventListener(
             "click",
-            function() {
-
-                openModal(date);
-
-            }
+            () => openModal(date)
         );
-
 
         calendar.appendChild(cell);
 
     }
-
 
     updateTotals();
 
 }
 
 
-/* ============================
-   OPEN DAY
-============================ */
+/* OPEN DAY */
 
 function openModal(date) {
 
-    selectedDate =
-        date;
+    selectedDate = date;
 
-
-    const key =
-        dateKey(date);
-
+    const key = dateKey(date);
 
     modalTitle.textContent =
         date.toLocaleDateString(
             "en-ZA",
             {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
             }
         );
-
-
-    /*
-       Existing day
-    */
 
     if (workDays[key]) {
 
@@ -1137,35 +1024,34 @@ function openModal(date) {
         endTime.value =
             workDays[key].end;
 
+        shiftType.value =
+            workDays[key].night
+            ? "night"
+            : "day";
+
         deleteDay.style.display =
             "block";
 
     } else {
 
-        startTime.value =
-            "";
+        startTime.value = "";
+        endTime.value = "";
 
-        endTime.value =
-            "";
+        shiftType.value = "day";
 
         deleteDay.style.display =
             "none";
 
     }
 
-
     updatePreview();
 
-
-    modalBg.style.display =
-        "flex";
+    modalBg.style.display = "flex";
 
 }
 
 
-/* ============================
-   PREVIEW
-============================ */
+/* PREVIEW */
 
 function updatePreview() {
 
@@ -1175,53 +1061,66 @@ function updatePreview() {
             endTime.value
         );
 
+    const rate =
+        getHourlyRate();
+
+    const night =
+        shiftType.value === "night" ||
+        isNightShift(
+            startTime.value,
+            endTime.value
+        );
 
     calculatedHours.textContent =
         h.toFixed(2);
 
 
-    const rate =
-        getHourlyRate();
-
-
-    /*
-       Sunday is ×2.
-       Normal day initially shows
-       normal rate. Weekly ×1.5 is
-       calculated after saving.
-    */
+    let multiplier =
+        1;
 
     if (
         selectedDate &&
         selectedDate.getDay() === 0
     ) {
 
+        multiplier = 2;
+
         calculatedRate.textContent =
             "Sunday ×2";
 
-        calculatedPay.textContent =
-            money(
-                h * rate * 2
-            );
+    } else if (night) {
+
+        multiplier = 1.10;
+
+        calculatedRate.textContent =
+            "Night +10%";
 
     } else {
 
         calculatedRate.textContent =
             "Normal / ×1.5 after 45 hours";
 
-        calculatedPay.textContent =
-            money(
-                h * rate
-            );
-
     }
+
+
+    const basePay =
+        h * rate * multiplier;
+
+    const nightAllowance =
+        night
+        ? h * rate * 0.10
+        : 0;
+
+    calculatedNightAllowance.textContent =
+        money(nightAllowance);
+
+    calculatedPay.textContent =
+        money(basePay);
 
 }
 
 
-/* ============================
-   SAVE DAY
-============================ */
+/* SAVE SINGLE DAY */
 
 workForm.addEventListener(
     "submit",
@@ -1229,42 +1128,38 @@ workForm.addEventListener(
 
         event.preventDefault();
 
-
         const h =
             calculateHours(
                 startTime.value,
                 endTime.value
             );
 
-
-        if (
-            h <= 0 ||
-            h > 24
-        ) {
+        if (h <= 0 || h > 24) {
 
             alert(
                 "Please enter valid working times."
             );
 
             return;
-
         }
-
 
         const key =
             dateKey(selectedDate);
 
-
         workDays[key] = {
 
-            start:
-                startTime.value,
+            start:startTime.value,
 
-            end:
-                endTime.value
+            end:endTime.value,
+
+            night:
+                shiftType.value === "night" ||
+                isNightShift(
+                    startTime.value,
+                    endTime.value
+                )
 
         };
-
 
         closeModal();
 
@@ -1274,27 +1169,17 @@ workForm.addEventListener(
 );
 
 
-/* ============================
-   DELETE DAY
-============================ */
+/* DELETE */
 
 deleteDay.addEventListener(
     "click",
     function() {
 
-        if (!selectedDate) {
+        if (!selectedDate) return;
 
-            return;
-
-        }
-
-
-        const key =
-            dateKey(selectedDate);
-
-
-        delete workDays[key];
-
+        delete workDays[
+            dateKey(selectedDate)
+        ];
 
         closeModal();
 
@@ -1304,9 +1189,7 @@ deleteDay.addEventListener(
 );
 
 
-/* ============================
-   CLOSE MODAL
-============================ */
+/* CLOSE DAY */
 
 cancelModal.addEventListener(
     "click",
@@ -1318,12 +1201,8 @@ modalBg.addEventListener(
     "click",
     function(event) {
 
-        if (
-            event.target === modalBg
-        ) {
-
+        if (event.target === modalBg) {
             closeModal();
-
         }
 
     }
@@ -1332,183 +1211,607 @@ modalBg.addEventListener(
 
 function closeModal() {
 
-    modalBg.style.display =
-        "none";
+    modalBg.style.display = "none";
 
-    selectedDate =
-        null;
+    selectedDate = null;
 
 }
 
 
 /* ============================
-   WEEKLY CALCULATION
+   FILL WEEK
+============================ */
+
+fillWeekButton.addEventListener(
+    "click",
+    function() {
+
+        if (!selectedDate) return;
+
+        selectedWeek =
+            getMonday(selectedDate);
+
+        buildWeekForm();
+
+        modalBg.style.display = "none";
+
+        weekModalBg.style.display = "flex";
+
+    }
+);
+
+
+/* BUILD WEEK */
+
+function buildWeekForm() {
+
+    weekForm.innerHTML = "";
+
+    const monday =
+        new Date(selectedWeek);
+
+    const days =
+        [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        ];
+
+
+    for (let i = 0; i < 7; i++) {
+
+        const date =
+            new Date(monday);
+
+        date.setDate(
+            monday.getDate() + i
+        );
+
+        const key =
+            dateKey(date);
+
+        const existing =
+            workDays[key];
+
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "week-day-row";
+
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "week-day-title";
+
+        title.textContent =
+            `${days[i]} — ${date.toLocaleDateString(
+                "en-ZA",
+                {
+                    day:"numeric",
+                    month:"short"
+                }
+            )}`;
+
+        row.appendChild(title);
+
+
+        const fields =
+            document.createElement("div");
+
+        fields.className =
+            "week-fields";
+
+
+        const select =
+            document.createElement("select");
+
+        select.dataset.key = key;
+
+        select.innerHTML = `
+            <option value="off">OFF</option>
+            <option value="day">☀ Day Shift</option>
+            <option value="night">🌙 Night Shift</option>
+        `;
+
+
+        if (existing) {
+
+            select.value =
+                existing.night
+                ? "night"
+                : "day";
+
+        }
+
+
+        const start =
+            document.createElement("input");
+
+        start.type = "time";
+
+        start.dataset.start = key;
+
+        if (existing) {
+            start.value =
+                existing.start;
+        }
+
+
+        const end =
+            document.createElement("input");
+
+        end.type = "time";
+
+        end.dataset.end = key;
+
+        if (existing) {
+            end.value =
+                existing.end;
+        }
+
+
+        fields.appendChild(select);
+        fields.appendChild(start);
+        fields.appendChild(end);
+
+        row.appendChild(fields);
+
+
+        const preview =
+            document.createElement("div");
+
+        preview.className =
+            "shift-preview";
+
+        preview.dataset.preview = key;
+
+        updateWeekRowPreview(
+            select,
+            start,
+            end,
+            preview
+        );
+
+
+        select.addEventListener(
+            "change",
+            function() {
+
+                if (select.value === "off") {
+
+                    start.value = "";
+                    end.value = "";
+
+                }
+
+                updateWeekRowPreview(
+                    select,
+                    start,
+                    end,
+                    preview
+                );
+
+            }
+        );
+
+
+        start.addEventListener(
+            "input",
+            function() {
+
+                updateWeekRowPreview(
+                    select,
+                    start,
+                    end,
+                    preview
+                );
+
+            }
+        );
+
+
+        end.addEventListener(
+            "input",
+            function() {
+
+                updateWeekRowPreview(
+                    select,
+                    start,
+                    end,
+                    preview
+                );
+
+            }
+        );
+
+
+        weekForm.appendChild(row);
+
+    }
+
+
+    document.getElementById(
+        "weekModalTitle"
+    ).textContent =
+        `Fill Week — ${monday.toLocaleDateString(
+            "en-ZA",
+            {
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        )}`;
+
+}
+
+
+/* WEEK PREVIEW */
+
+function updateWeekRowPreview(
+    select,
+    start,
+    end,
+    preview
+) {
+
+    if (select.value === "off") {
+
+        preview.textContent =
+            "No shift";
+
+        preview.style.color =
+            "#777";
+
+        return;
+
+    }
+
+
+    const h =
+        calculateHours(
+            start.value,
+            end.value
+        );
+
+
+    if (
+        isNightShift(
+            start.value,
+            end.value
+        ) ||
+        select.value === "night"
+    ) {
+
+        preview.textContent =
+            `🌙 Night shift — ${h.toFixed(2)} hrs — +10% allowance`;
+
+        preview.style.color =
+            "#315a8c";
+
+    } else {
+
+        preview.textContent =
+            `☀ Day shift — ${h.toFixed(2)} hrs`;
+
+        preview.style.color =
+            "#388e3c";
+
+    }
+
+}
+
+
+/* SAVE WEEK */
+
+saveWeek.addEventListener(
+    "click",
+    function() {
+
+        const rows =
+            weekForm.querySelectorAll(
+                ".week-day-row"
+            );
+
+
+        rows.forEach(function(row) {
+
+            const select =
+                row.querySelector("select");
+
+            const start =
+                row.querySelector(
+                    'input[type="time"][data-start]'
+                );
+
+            const end =
+                row.querySelector(
+                    'input[type="time"][data-end]'
+                );
+
+
+            const key =
+                select.dataset.key;
+
+
+            if (
+                select.value === "off"
+            ) {
+
+                delete workDays[key];
+
+                return;
+
+            }
+
+
+            const h =
+                calculateHours(
+                    start.value,
+                    end.value
+                );
+
+
+            if (
+                !start.value ||
+                !end.value ||
+                h <= 0 ||
+                h > 24
+            ) {
+
+                return;
+
+            }
+
+
+            workDays[key] = {
+
+                start:start.value,
+
+                end:end.value,
+
+                night:
+                    select.value === "night" ||
+                    isNightShift(
+                        start.value,
+                        end.value
+                    )
+
+            };
+
+        });
+
+
+        weekModalBg.style.display =
+            "none";
+
+        selectedWeek = null;
+
+        renderCalendar();
+
+    }
+);
+
+
+/* CANCEL WEEK */
+
+cancelWeek.addEventListener(
+    "click",
+    function() {
+
+        weekModalBg.style.display =
+            "none";
+
+        selectedWeek = null;
+
+    }
+);
+
+
+weekModalBg.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === weekModalBg
+        ) {
+
+            weekModalBg.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+/* ============================
+   TOTAL CALCULATIONS
 ============================ */
 
 function calculateTotals() {
 
     const weeks = {};
 
-
-    /*
-       Group working days
-       by Monday-Sunday week.
-    */
-
     Object.keys(workDays)
-        .forEach(function(key) {
+    .forEach(function(key) {
 
-            const date =
-                new Date(
-                    key + "T12:00:00"
-                );
+        const date =
+            new Date(
+                key + "T12:00:00"
+            );
 
+        const week =
+            getWeekKey(date);
 
-            const week =
-                getWeekKey(date);
+        if (!weeks[week]) {
+            weeks[week] = [];
+        }
 
+        weeks[week].push({
 
-            if (!weeks[week]) {
+            date:date,
 
-                weeks[week] = [];
+            hours:
+                calculateHours(
+                    workDays[key].start,
+                    workDays[key].end
+                ),
 
-            }
-
-
-            weeks[week].push({
-
-                date:
-                    date,
-
-                hours:
-                    calculateHours(
-                        workDays[key].start,
-                        workDays[key].end
-                    )
-
-            });
+            night:
+                workDays[key].night
 
         });
 
+    });
+
 
     let totalHours = 0;
-
     let normalHours = 0;
-
     let overtimeHours = 0;
-
     let sundayHours = 0;
-
+    let nightHours = 0;
     let totalSalary = 0;
+    let totalNightAllowance = 0;
 
 
     const rate =
         getHourlyRate();
 
 
-    /*
-       Calculate each week.
-    */
-
     Object.keys(weeks)
-        .forEach(function(weekKey) {
+    .forEach(function(weekKey) {
 
-            let normalUsed = 0;
+        let normalUsed = 0;
 
 
-            weeks[weekKey].sort(
-                function(a, b) {
+        weeks[weekKey].sort(
+            (a,b) => a.date - b.date
+        );
 
-                    return a.date - b.date;
+
+        weeks[weekKey]
+        .forEach(function(item) {
+
+            const h =
+                item.hours;
+
+            totalHours += h;
+
+
+            const nightMultiplier =
+                item.night
+                ? 1.10
+                : 1;
+
+
+            /*
+               Sunday ×2.
+               Night allowance can also
+               apply to Sunday night.
+            */
+
+            if (
+                item.date.getDay() === 0
+            ) {
+
+                sundayHours += h;
+
+                if (item.night) {
+
+                    nightHours += h;
 
                 }
-            );
+
+                const pay =
+                    h *
+                    rate *
+                    2 *
+                    nightMultiplier;
+
+                totalSalary += pay;
+
+                if (item.night) {
+
+                    totalNightAllowance +=
+                        h * rate * 2 * 0.10;
+
+                }
+
+                return;
+
+            }
 
 
-            weeks[weekKey]
-                .forEach(function(item) {
-
-                    const h =
-                        item.hours;
-
-
-                    totalHours += h;
+            const remaining =
+                Math.max(
+                    0,
+                    45 - normalUsed
+                );
 
 
-                    /*
-                       Sunday
-                       always ×2
-                    */
-
-                    if (
-                        item.date.getDay() === 0
-                    ) {
-
-                        sundayHours += h;
+            const normal =
+                Math.min(
+                    h,
+                    remaining
+                );
 
 
-                        totalSalary +=
-                            h *
-                            rate *
-                            2;
+            const overtime =
+                Math.max(
+                    0,
+                    h - normal
+                );
 
 
-                        return;
-
-                    }
+            normalUsed += normal;
 
 
-                    /*
-                       First 45 hours
-                       normal rate
-                    */
+            normalHours += normal;
 
-                    const remaining =
-                        Math.max(
-                            0,
-                            45 - normalUsed
-                        );
+            overtimeHours += overtime;
 
 
-                    const normal =
-                        Math.min(
-                            h,
-                            remaining
-                        );
+            if (item.night) {
+
+                nightHours += h;
+
+            }
 
 
-                    const overtime =
-                        Math.max(
-                            0,
-                            h - normal
-                        );
+            totalSalary +=
+                normal *
+                rate *
+                nightMultiplier;
 
 
-                    normalUsed +=
-                        normal;
+            totalSalary +=
+                overtime *
+                rate *
+                1.5 *
+                nightMultiplier;
 
 
-                    normalHours +=
-                        normal;
+            if (item.night) {
 
+                totalNightAllowance +=
+                    (
+                        normal * rate +
+                        overtime * rate * 1.5
+                    ) * 0.10;
 
-                    overtimeHours +=
-                        overtime;
-
-
-                    totalSalary +=
-                        normal *
-                        rate;
-
-
-                    totalSalary +=
-                        overtime *
-                        rate *
-                        1.5;
-
-                });
+            }
 
         });
+
+    });
 
 
     return {
@@ -1517,7 +1820,9 @@ function calculateTotals() {
         normalHours,
         overtimeHours,
         sundayHours,
+        nightHours,
         totalSalary,
+        totalNightAllowance,
         weeks
 
     };
@@ -1525,9 +1830,7 @@ function calculateTotals() {
 }
 
 
-/* ============================
-   UPDATE TOTALS
-============================ */
+/* UPDATE TOTALS */
 
 function updateTotals() {
 
@@ -1560,11 +1863,15 @@ function updateTotals() {
 
 
     document.getElementById(
+        "nightHours"
+    ).textContent =
+        totals.nightHours.toFixed(2);
+
+
+    document.getElementById(
         "totalSalary"
     ).textContent =
-        money(
-            totals.totalSalary
-        );
+        money(totals.totalSalary);
 
 
     renderWeeklyTotals(
@@ -1574,9 +1881,7 @@ function updateTotals() {
 }
 
 
-/* ============================
-   WEEKLY DISPLAY
-============================ */
+/* WEEKLY DISPLAY */
 
 function renderWeeklyTotals(weeks) {
 
@@ -1590,7 +1895,7 @@ function renderWeeklyTotals(weeks) {
         Object.keys(weeks).sort();
 
 
-    if (keys.length === 0) {
+    if (!keys.length) {
 
         container.textContent =
             "No working days recorded yet.";
@@ -1602,223 +1907,232 @@ function renderWeeklyTotals(weeks) {
 
     container.innerHTML = "";
 
-
     const rate =
         getHourlyRate();
 
 
-    keys.forEach(
-        function(weekKey) {
+    keys.forEach(function(weekKey) {
 
-            let normal = 0;
+        let normal = 0;
+        let overtime = 0;
+        let sunday = 0;
+        let night = 0;
+        let salary = 0;
+        let nightAllowance = 0;
 
-            let overtime = 0;
-
-            let sunday = 0;
-
-            let salary = 0;
-
-
-            let normalUsed = 0;
+        let normalUsed = 0;
 
 
-            weeks[weekKey].sort(
-                function(a, b) {
+        weeks[weekKey].sort(
+            (a,b) => a.date - b.date
+        );
 
-                    return a.date - b.date;
+
+        weeks[weekKey]
+        .forEach(function(item) {
+
+            const h = item.hours;
+
+            const nightMultiplier =
+                item.night ? 1.10 : 1;
+
+
+            if (item.night) {
+                night += h;
+            }
+
+
+            if (
+                item.date.getDay() === 0
+            ) {
+
+                sunday += h;
+
+                salary +=
+                    h *
+                    rate *
+                    2 *
+                    nightMultiplier;
+
+                if (item.night) {
+
+                    nightAllowance +=
+                        h *
+                        rate *
+                        2 *
+                        0.10;
 
                 }
+
+                return;
+
+            }
+
+
+            const remaining =
+                Math.max(
+                    0,
+                    45 - normalUsed
+                );
+
+
+            const reg =
+                Math.min(
+                    h,
+                    remaining
+                );
+
+
+            const extra =
+                Math.max(
+                    0,
+                    h - reg
+                );
+
+
+            normalUsed += reg;
+
+            normal += reg;
+
+            overtime += extra;
+
+
+            salary +=
+                reg *
+                rate *
+                nightMultiplier;
+
+
+            salary +=
+                extra *
+                rate *
+                1.5 *
+                nightMultiplier;
+
+
+            if (item.night) {
+
+                nightAllowance +=
+                    (
+                        reg * rate +
+                        extra * rate * 1.5
+                    ) * 0.10;
+
+            }
+
+        });
+
+
+        const total =
+            normal +
+            overtime +
+            sunday;
+
+
+        const start =
+            new Date(
+                weekKey + "T12:00:00"
             );
 
+        const end =
+            new Date(start);
 
-            weeks[weekKey]
-                .forEach(
-                    function(item) {
-
-                        const h =
-                            item.hours;
-
-
-                        if (
-                            item.date.getDay() === 0
-                        ) {
-
-                            sunday += h;
-
-                            salary +=
-                                h *
-                                rate *
-                                2;
-
-                            return;
-
-                        }
+        end.setDate(
+            end.getDate() + 6
+        );
 
 
-                        const remaining =
-                            Math.max(
-                                0,
-                                45 - normalUsed
-                            );
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "week-row";
 
 
-                        const reg =
-                            Math.min(
-                                h,
-                                remaining
-                            );
+        row.innerHTML = `
 
-
-                        const extra =
-                            Math.max(
-                                0,
-                                h - reg
-                            );
-
-
-                        normalUsed +=
-                            reg;
-
-
-                        normal +=
-                            reg;
-
-                        overtime +=
-                            extra;
-
-
-                        salary +=
-                            reg * rate;
-
-                        salary +=
-                            extra *
-                            rate *
-                            1.5;
-
+        <div>
+            <strong>
+                ${start.toLocaleDateString(
+                    "en-ZA",
+                    {
+                        day:"numeric",
+                        month:"short"
                     }
-                );
+                )}
+                -
+                ${end.toLocaleDateString(
+                    "en-ZA",
+                    {
+                        day:"numeric",
+                        month:"short"
+                    }
+                )}
+            </strong>
+        </div>
 
+        <div>
+            Total:
+            ${total.toFixed(2)} hrs
+        </div>
 
-            const total =
-                normal +
-                overtime +
-                sunday;
+        <div>
+            Normal:
+            ${normal.toFixed(2)} hrs
+        </div>
 
+        <div class="overtime">
+            ×1.5:
+            ${overtime.toFixed(2)} hrs
+        </div>
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+        <div class="overtime">
+            Sunday ×2:
+            ${sunday.toFixed(2)} hrs
+        </div>
 
+        <div class="night-pay">
+            🌙 Night:
+            ${night.toFixed(2)} hrs
+        </div>
 
-            row.className =
-                "week-row";
+        <div class="night-pay">
+            Night allowance:
+            ${money(nightAllowance)}
+        </div>
 
+        <div>
+            <strong>
+                Salary:
+                ${money(salary)}
+            </strong>
+        </div>
 
-            const start =
-                new Date(
-                    weekKey +
-                    "T12:00:00"
-                );
+        `;
 
+        container.appendChild(row);
 
-            const end =
-                new Date(start);
-
-
-            end.setDate(
-                end.getDate() + 6
-            );
-
-
-            row.innerHTML = `
-
-                <div>
-
-                    <strong>
-                        ${start.toLocaleDateString(
-                            "en-ZA",
-                            {
-                                day: "numeric",
-                                month: "short"
-                            }
-                        )}
-
-                        -
-
-                        ${end.toLocaleDateString(
-                            "en-ZA",
-                            {
-                                day: "numeric",
-                                month: "short"
-                            }
-                        )}
-                    </strong>
-
-                </div>
-
-
-                <div>
-                    Total:
-                    ${total.toFixed(2)} hrs
-                </div>
-
-
-                <div>
-                    Normal:
-                    ${normal.toFixed(2)} hrs
-                </div>
-
-
-                <div class="overtime">
-                    ×1.5:
-                    ${overtime.toFixed(2)} hrs
-                </div>
-
-
-                <div class="overtime">
-                    Sunday ×2:
-                    ${sunday.toFixed(2)} hrs
-                </div>
-
-
-                <div>
-
-                    <strong>
-                        Salary:
-                        ${money(salary)}
-                    </strong>
-
-                </div>
-
-            `;
-
-
-            container.appendChild(
-                row
-            );
-
-        }
-    );
+    });
 
 }
 
 
-/* ============================
-   EVENTS
-============================ */
+/* EVENTS */
 
 startTime.addEventListener(
     "input",
     updatePreview
 );
 
-
 endTime.addEventListener(
     "input",
     updatePreview
 );
 
+shiftType.addEventListener(
+    "change",
+    updatePreview
+);
 
 hourlyRate.addEventListener(
     "input",
@@ -1860,13 +2174,11 @@ nextMonth.addEventListener(
 );
 
 
-/* ============================
-   START APPLICATION
-============================ */
+/* START */
 
 renderCalendar();
 
 </script>
 
 </body>
-</html>
+    </html>
